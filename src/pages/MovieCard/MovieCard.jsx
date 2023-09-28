@@ -1,5 +1,4 @@
 import { getMoviesById } from 'api/api';
-
 import { useEffect, useRef, useState } from 'react';
 import {
   Link,
@@ -8,7 +7,14 @@ import {
   useNavigate,
   useParams,
 } from 'react-router-dom';
-import { ImgWrap, MainMovieCard } from './MovieCard.styled';
+import {
+  BtnGoBack,
+  ImgWrap,
+  MainMovieCard,
+  MovieCardGenreList,
+  MovieCardInfo,
+} from './MovieCard.styled';
+import { BsArrowLeft } from 'react-icons/bs';
 
 const BAZE_PATH = 'https://image.tmdb.org/t/p/original';
 
@@ -31,15 +37,15 @@ export const MovieCard = () => {
           poster_path,
           title,
           overview,
-          popularity,
+          vote_average,
           release_date,
           genres,
         } = await getMoviesById(movieId);
 
         setPoster(BAZE_PATH + poster_path);
         setTitle(title);
-        setReleaseYear(release_date);
-        setUserScore(popularity);
+        setReleaseYear(release_date.split('-')[0]);
+        setUserScore(`${Math.round(vote_average * 10)}%`);
         setOverview(overview);
         setGenres(genres);
       } catch (err) {
@@ -58,10 +64,11 @@ export const MovieCard = () => {
     <>
       <MainMovieCard>
         <ImgWrap>
-          <button onClick={handleGoBack}>Go back</button>
+          <BsArrowLeft />
+          <BtnGoBack onClick={handleGoBack}>Go back</BtnGoBack>
           <img src={poster} alt={title} />
         </ImgWrap>
-        <div>
+        <MovieCardInfo>
           <h3>
             {title} ({releaseYear})
           </h3>
@@ -69,12 +76,12 @@ export const MovieCard = () => {
           <h4>Overview</h4>
           <p>{overview}</p>
           <h4>Genres</h4>
-          <ul>
+          <MovieCardGenreList>
             {genres.map(genre => (
               <li key={genre.id}>{genre.name}</li>
             ))}
-          </ul>
-        </div>
+          </MovieCardGenreList>
+        </MovieCardInfo>
       </MainMovieCard>
       <div>
         <h5>Additional information</h5>

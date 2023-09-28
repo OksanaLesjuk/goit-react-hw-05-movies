@@ -8,4 +8,13 @@ margin: 0;
 `
 
 export const MovieLink = styled(NavLink)`
-color:green`
+color: №333;
+display: inline-block;
+margin-bottom:16px;
+
+`
+
+export const TrendingTitle = styled.h2`
+text-transform:uppercase;
+font-size:32px`
+

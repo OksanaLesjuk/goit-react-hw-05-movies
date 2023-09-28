@@ -26,11 +26,12 @@ export const StyledLink = styled(NavLink)`
   padding: 8px 16px;
   border-radius: 4px;
   text-decoration: none;
-  color: black;
+  color: white;
   font-weight: 500;
+  font-size: 24px;
 
   &.active {
-    color: white;
+    
     background-color: gray;
   }
 `;
