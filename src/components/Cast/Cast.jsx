@@ -1,7 +1,7 @@
 import { getMovieCast } from 'api/api';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { CastList, CastListItemImgWrap } from './Cast.styled';
+import { CastList, CastListItemImgWrap, CastListItem } from './Cast.styled';
 
 const BAZE_PATH = 'https://image.tmdb.org/t/p/original';
 
@@ -35,13 +35,16 @@ const Cast = () => {
     <div>
       <CastList>
         {cast.map(({ name, poster, id, character }) => (
-          <li key={id}>
+          <CastListItem key={id}>
             <CastListItemImgWrap>
               <img src={poster} alt={name} />
             </CastListItemImgWrap>
             <p>{name}</p>
-            <p>Character: {character}</p>
-          </li>
+            <p>
+              Character: <br />
+              {character}
+            </p>
+          </CastListItem>
         ))}
       </CastList>
     </div>
