@@ -43,6 +43,7 @@ export const MovieCard = () => {
   return (
     <StyledMovieCard>
       <ImgWrap>
+        <button>Go back</button>
         <img src={poster} alt={title} />
       </ImgWrap>
       <div>

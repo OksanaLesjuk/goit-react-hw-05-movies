@@ -1,5 +1,5 @@
 import { Notify } from 'notiflix';
-import { useState } from 'react';
+
 import {
   SearchbarHeader,
   SearchForm,
@@ -7,21 +7,25 @@ import {
   SearchFormButtonLabel,
   SearchFormInput,
 } from './Searchbar.styled';
+import { useSearchParams } from 'react-router-dom';
 
 export default function Searchbar({ onSubmit }) {
-  const [inputQuery, setInputQuery] = useState('');
+  const [inputQuery, setInputQuery] = useSearchParams();
+  const query = inputQuery.get('query') ?? '';
 
   const handleInputQuery = e => {
-    setInputQuery(e.currentTarget.value.toLowerCase());
+    const textInput = e.currentTarget.value.toLowerCase();
+    //прописуємо умову ,щоб при очищенні інпуту в адреснопу рядку не залишався ключ запиту :
+    textInput ? setInputQuery({ query: textInput }) : setInputQuery({});
   };
 
   const handleSubmit = e => {
     e.preventDefault();
-    if (inputQuery.trim() === '') {
+    if (query === '') {
       Notify.info('Enter your request');
       return;
     }
-    onSubmit(inputQuery.trim());
+    onSubmit(query);
     setInputQuery('');
   };
 
@@ -40,7 +44,7 @@ export default function Searchbar({ onSubmit }) {
             autoFocus
             placeholder="Search movie"
             onChange={handleInputQuery}
-            value={inputQuery}
+            value={query}
           />
         </SearchForm>
       </SearchbarHeader>

@@ -34,11 +34,8 @@ export const getMoviesBySearch = async (query) => {
 };
 
 export const getMoviesById = async movieId => {
-    const { data } = await axios.get(`movie/${movieId}`, {
-        params: {
-            append_to_response: 'poster_path'
-        }
-    });
+    const { data } = await axios.get(`movie/${movieId}`
+    );
     console.log('data :>> ', data);
     return data;
 };
