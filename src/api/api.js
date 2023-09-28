@@ -41,6 +41,14 @@ export const getMoviesById = async movieId => {
 };
 
 
+
+export const getMovieCast = async movieId => {
+    const { data } = await axios.get(`movie/${movieId}/credits`
+    );
+    console.log('data :>> ', data);
+    return data;
+};
+
 // const getMoviesService = async (value) => {
 
 //     const { data } = await axios(BAZE_URL, {

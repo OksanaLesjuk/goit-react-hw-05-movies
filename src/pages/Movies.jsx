@@ -2,7 +2,7 @@ import { getMoviesBySearch } from 'api/api';
 import Searchbar from 'components/Searchbar/Searchbar';
 import MoviesList from 'components/MoviesList/MoviesList';
 import { Notify } from 'notiflix';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 export const Movies = () => {
@@ -12,53 +12,36 @@ export const Movies = () => {
   const query = searchParams.get('query') ?? '';
   const ref = useRef(query);
 
+  const getSearchedMovies = useCallback(async value => {
+    try {
+      const { results } = await getMoviesBySearch(value);
+      if (!results.length) {
+        Notify.failure(
+          'Sorry, there are no movies matching your search query. Please try again.'
+        );
+        return;
+      }
+      if (results.length > 0) {
+        setSearchedMovies(results);
+      }
+    } catch (err) {
+      console.log(err.message);
+    }
+  }, []);
+
   useEffect(() => {
     if (!ref.current) {
       return;
     } //відміняємо запит при першому рендері
-
-    const getSearchedMovies = async () => {
-      try {
-        const { results } = await getMoviesBySearch(ref.current);
-        if (!results.length) {
-          Notify.failure(
-            'Sorry, there are no movies matching your search query. Please try again.'
-          );
-          return;
-        }
-        if (results.length > 0) {
-          setSearchedMovies(results);
-        }
-      } catch (err) {
-        console.log(err.message);
-      }
-    };
-    getSearchedMovies();
-  }, [ref]);
+    getSearchedMovies(ref.current);
+  }, [getSearchedMovies, ref]);
 
   useEffect(() => {
     if (!searchQuery) {
       return;
     } //відміняємо запит при першому рендері
-
-    const getSearchedMovies = async () => {
-      try {
-        const { results } = await getMoviesBySearch(searchQuery);
-        if (!results.length) {
-          Notify.failure(
-            'Sorry, there are no movies matching your search query. Please try again.'
-          );
-          return;
-        }
-        if (results.length > 0) {
-          setSearchedMovies(results);
-        }
-      } catch (err) {
-        console.log(err.message);
-      }
-    };
-    getSearchedMovies();
-  }, [searchQuery]);
+    getSearchedMovies(searchQuery);
+  }, [getSearchedMovies, searchQuery]);
 
   const handleFormSubmit = query => {
     setSearchedMovies([]);
@@ -68,7 +51,10 @@ export const Movies = () => {
     <>
       <Searchbar onSubmit={handleFormSubmit} />
       {searchedMovies && searchedMovies.length > 0 && (
-        <MoviesList movies={searchedMovies}></MoviesList>
+        <MoviesList
+          movies={searchedMovies}
+          setSearchedMovies={setSearchedMovies}
+        ></MoviesList>
       )}
     </>
   );

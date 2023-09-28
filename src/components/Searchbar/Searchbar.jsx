@@ -10,13 +10,13 @@ import {
 import { useSearchParams } from 'react-router-dom';
 
 export default function Searchbar({ onSubmit }) {
-  const [inputQuery, setInputQuery] = useSearchParams();
-  const query = inputQuery.get('query') ?? '';
+  const [searchQuery, setSearchQuery] = useSearchParams();
+  const query = searchQuery.get('query') ?? '';
 
   const handleInputQuery = e => {
     const textInput = e.currentTarget.value.toLowerCase();
     //прописуємо умову ,щоб при очищенні інпуту в адреснопу рядку не залишався ключ запиту :
-    textInput ? setInputQuery({ query: textInput }) : setInputQuery({});
+    textInput ? setSearchQuery({ query: textInput }) : setSearchQuery({});
   };
 
   const handleSubmit = e => {
@@ -26,7 +26,6 @@ export default function Searchbar({ onSubmit }) {
       return;
     }
     onSubmit(query);
-    setInputQuery('');
   };
 
   return (
