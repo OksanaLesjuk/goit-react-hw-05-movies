@@ -8,24 +8,35 @@ import {
   SearchFormInput,
 } from './Searchbar.styled';
 import { useSearchParams } from 'react-router-dom';
+import { useState } from 'react';
 
 export default function Searchbar({ onSubmit }) {
+  const [inputValue, setInputValue] = useState('');
   const [searchQuery, setSearchQuery] = useSearchParams();
   const query = searchQuery.get('query') ?? '';
 
   const handleInputQuery = e => {
     const textInput = e.currentTarget.value.toLowerCase();
     //прописуємо умову ,щоб при очищенні інпуту в адреснопу рядку не залишався ключ запиту :
-    textInput ? setSearchQuery({ query: textInput }) : setSearchQuery({});
+    if (textInput) {
+      setSearchQuery({ query: textInput });
+      setInputValue(textInput);
+    } else {
+      setSearchQuery({});
+      setInputValue('');
+    }
   };
 
   const handleSubmit = e => {
     e.preventDefault();
-    if (query === '') {
+    console.log('inputValue :>> ', inputValue);
+    console.log('query :>> ', query);
+    if (inputValue === '') {
       Notify.info('Enter your request');
       return;
     }
     onSubmit(query);
+    setInputValue('');
   };
 
   return (
@@ -43,7 +54,7 @@ export default function Searchbar({ onSubmit }) {
             autoFocus
             placeholder="Search movie"
             onChange={handleInputQuery}
-            value={query}
+            value={inputValue}
           />
         </SearchForm>
       </SearchbarHeader>

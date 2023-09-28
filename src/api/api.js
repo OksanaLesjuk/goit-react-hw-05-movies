@@ -36,7 +36,7 @@ export const getMoviesBySearch = async (query) => {
 export const getMoviesById = async movieId => {
     const { data } = await axios.get(`movie/${movieId}`
     );
-    console.log('data :>> ', data);
+
     return data;
 };
 
@@ -45,26 +45,17 @@ export const getMoviesById = async movieId => {
 export const getMovieCast = async movieId => {
     const { data } = await axios.get(`movie/${movieId}/credits`
     );
+
+    return data;
+};
+
+
+export const getMovieReviews = async movieId => {
+    const { data } = await axios.get(`movie/${movieId}/reviews`
+
+    );
     console.log('data :>> ', data);
     return data;
 };
 
-// const getMoviesService = async (value) => {
 
-//     const { data } = await axios(BAZE_URL, {
-//         params: {
-//             key: '82214decc1420629edfae943aabed99c',
-//             q: `/ ${ value } `,
-//             append_to_response: 'video',
-//             // image_type: "photo",
-//             // orientation: "horizontal",
-//             // safesearch: "true",
-//             // page: page,
-//             // per_page: 12,
-//         }
-//     });
-//     console.log('data :>> ', data);
-//     return data;
-// }
-
-// export { getMoviesService };

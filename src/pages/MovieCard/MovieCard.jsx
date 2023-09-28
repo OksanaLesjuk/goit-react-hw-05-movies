@@ -1,6 +1,6 @@
 import { getMoviesById } from 'api/api';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   Link,
   Outlet,
@@ -14,7 +14,6 @@ const BAZE_PATH = 'https://image.tmdb.org/t/p/original';
 
 export const MovieCard = () => {
   const { movieId } = useParams();
-
   const [title, setTitle] = useState('');
   const [releaseYear, setReleaseYear] = useState();
   const [poster, setPoster] = useState('');
@@ -23,6 +22,7 @@ export const MovieCard = () => {
   const [userScore, setUserScore] = useState();
   const location = useLocation();
   const navigate = useNavigate();
+  const refLocation = useRef(location.state);
 
   useEffect(() => {
     const getSearchedMovies = async () => {
@@ -50,7 +50,8 @@ export const MovieCard = () => {
   }, [movieId]);
 
   const handleGoBack = () => {
-    navigate(location.state);
+    //використовуємо useRef,щоб можна було повернутись з адрeси Cast і Reviews , якщо лише з картки, то можна вказати location.state
+    navigate(refLocation.current);
   };
 
   return (
