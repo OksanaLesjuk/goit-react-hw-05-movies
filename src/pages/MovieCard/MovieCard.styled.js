@@ -17,6 +17,13 @@ height:auto;
 
 
 `
+export const Poster = styled.div`
+display: block;
+width:300px;
+height:auto;
+
+
+`
 
 export const BtnGoBack = styled.button`
 background-color: transparent;

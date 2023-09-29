@@ -16,6 +16,7 @@ import {
   MovieCardInfo,
   MovieCardAddititonalWrap,
   MovieCardAddititonalMenu,
+  Poster,
 } from './MovieCard.styled';
 import { BsArrowLeft } from 'react-icons/bs';
 import noPoster from '../../helper/AdobeStock_447837284_Preview.jpeg';
@@ -73,7 +74,9 @@ const MovieCard = () => {
             <BsArrowLeft />
             <BtnGoBack type="button">Go back</BtnGoBack>
           </MovieCardBtnWrap>
-          <img src={poster} alt={title} />
+          <Poster>
+            <img src={poster} alt={title} />
+          </Poster>
         </ImgWrap>
         <MovieCardInfo>
           <h3>
