@@ -2,7 +2,7 @@ import { getMovieCast } from 'api/api';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { CastList, CastListItemImgWrap, CastListItem } from './Cast.styled';
-
+import image from '../../helper/placeholder_image_new1.png';
 const BAZE_PATH = 'https://image.tmdb.org/t/p/original';
 
 const Cast = () => {
@@ -18,7 +18,7 @@ const Cast = () => {
           cast.map(({ name, profile_path, id, character }) => {
             return {
               name,
-              poster: BAZE_PATH + profile_path,
+              poster: profile_path ? BAZE_PATH + profile_path : image,
               id,
               character,
             };

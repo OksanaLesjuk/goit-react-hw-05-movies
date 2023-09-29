@@ -18,6 +18,7 @@ import {
   MovieCardAddititonalMenu,
 } from './MovieCard.styled';
 import { BsArrowLeft } from 'react-icons/bs';
+import noPoster from '../../helper/AdobeStock_447837284_Preview.jpeg';
 
 const BAZE_PATH = 'https://image.tmdb.org/t/p/original';
 
@@ -34,6 +35,7 @@ const MovieCard = () => {
   const refLocation = useRef(location.state ?? '/');
 
   useEffect(() => {
+    console.log(noPoster);
     const getSearchedMovies = async () => {
       try {
         const {
@@ -45,7 +47,7 @@ const MovieCard = () => {
           genres,
         } = await getMoviesById(movieId);
 
-        setPoster(BAZE_PATH + poster_path);
+        setPoster(poster_path ? BAZE_PATH + poster_path : noPoster);
         setTitle(title);
         setReleaseYear(release_date.split('-')[0]);
         setUserScore(`${Math.round(vote_average * 10)}%`);
