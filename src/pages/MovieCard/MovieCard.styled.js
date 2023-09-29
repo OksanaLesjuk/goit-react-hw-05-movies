@@ -12,7 +12,7 @@ padding-top:20px;
 
 export const ImgWrap = styled.div`
 
-width:700px;
+width:300px;
 height:auto;
 
 
