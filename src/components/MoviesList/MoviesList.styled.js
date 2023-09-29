@@ -5,10 +5,11 @@ export const StyledMoviesList = styled.ul`
 list-style:none;
 padding: 0;
 margin: 0;
+padding-top:20px;
 `
 
 export const MovieLink = styled(NavLink)`
-color: №333;
+
 display: inline-block;
 margin-bottom:16px;
 

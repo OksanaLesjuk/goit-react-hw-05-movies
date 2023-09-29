@@ -5,7 +5,7 @@ import { Notify } from 'notiflix';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-export const Movies = () => {
+const Movies = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchedMovies, setSearchedMovies] = useState([]);
   const [searchParams] = useSearchParams();
@@ -59,3 +59,5 @@ export const Movies = () => {
     </>
   );
 };
+
+export default Movies;

@@ -1,11 +1,12 @@
 import { getMovieReviews } from 'api/api';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { ReviewsList, ReviewsAutor, ReviewsContent } from './Reviews.styled';
 
 const Reviews = () => {
   const { movieId } = useParams();
   const [reviews, setReviews] = useState([]);
-
+  const [areReviewsLoaded, setAreReviewsLoaded] = useState(false);
   useEffect(() => {
     const getReviews = async () => {
       try {
@@ -21,6 +22,7 @@ const Reviews = () => {
             };
           });
         setReviews(makeObjReviews);
+        setAreReviewsLoaded(true);
       } catch (err) {
         console.log(err.message);
       }
@@ -29,18 +31,18 @@ const Reviews = () => {
   }, [movieId]);
   return (
     <div>
-      <ul>
-        {reviews.length > 0 ? (
+      <ReviewsList>
+        {areReviewsLoaded && reviews.length > 0 ? (
           reviews.map(({ author, id, content }) => (
             <li key={id}>
-              <p>Autor: {author}</p>
-              <p>{content}</p>
+              <ReviewsAutor>Autor: {author}</ReviewsAutor>
+              <ReviewsContent>{content}</ReviewsContent>
             </li>
           ))
         ) : (
           <p>We don't have any reviews for this movie.</p>
         )}
-      </ul>
+      </ReviewsList>
     </div>
   );
 };

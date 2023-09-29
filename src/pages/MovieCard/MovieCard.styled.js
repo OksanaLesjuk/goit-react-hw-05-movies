@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from '@emotion/styled'
 
 
 
@@ -24,6 +24,9 @@ border:transparent;
 margin-bottom:10px;
 margin-left:10px;
 
+&:hover {
+    color: #ff7f7f;
+}
 
 `
 
@@ -32,4 +35,20 @@ padding-top:24px;`
 
 export const MovieCardGenreList = styled.div`
 display:flex;
-gap:16px`
+gap:16px;`
+
+export const MovieCardBtnWrap = styled.div`
+cursor: pointer;`
+
+export const MovieCardAddititonalWrap = styled.div`
+padding-top: 20px;
+padding-bottom: 20px;
+border-bottom: 1px solid gray; `
+
+
+export const MovieCardAddititonalMenu = styled.ul`
+display:flex;
+flex-direction:column;
+gap:16px; `
+
+

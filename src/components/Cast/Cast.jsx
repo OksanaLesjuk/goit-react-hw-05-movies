@@ -39,11 +39,13 @@ const Cast = () => {
             <CastListItemImgWrap>
               <img src={poster} alt={name} />
             </CastListItemImgWrap>
-            <p>{name}</p>
-            <p>
-              Character: <br />
-              {character}
-            </p>
+            <div>
+              <p>{name}</p>
+              <p>
+                Character: <br />
+                {character}
+              </p>
+            </div>
           </CastListItem>
         ))}
       </CastList>

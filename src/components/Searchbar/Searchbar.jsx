@@ -29,8 +29,7 @@ export default function Searchbar({ onSubmit }) {
 
   const handleSubmit = e => {
     e.preventDefault();
-    console.log('inputValue :>> ', inputValue);
-    console.log('query :>> ', query);
+
     if (inputValue === '') {
       Notify.info('Enter your request');
       return;

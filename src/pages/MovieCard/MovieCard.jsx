@@ -1,7 +1,7 @@
 import { getMoviesById } from 'api/api';
-import { useEffect, useRef, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import {
-  Link,
+  NavLink,
   Outlet,
   useLocation,
   useNavigate,
@@ -11,14 +11,17 @@ import {
   BtnGoBack,
   ImgWrap,
   MainMovieCard,
+  MovieCardBtnWrap,
   MovieCardGenreList,
   MovieCardInfo,
+  MovieCardAddititonalWrap,
+  MovieCardAddititonalMenu,
 } from './MovieCard.styled';
 import { BsArrowLeft } from 'react-icons/bs';
 
 const BAZE_PATH = 'https://image.tmdb.org/t/p/original';
 
-export const MovieCard = () => {
+const MovieCard = () => {
   const { movieId } = useParams();
   const [title, setTitle] = useState('');
   const [releaseYear, setReleaseYear] = useState();
@@ -28,7 +31,7 @@ export const MovieCard = () => {
   const [userScore, setUserScore] = useState();
   const location = useLocation();
   const navigate = useNavigate();
-  const refLocation = useRef(location.state);
+  const refLocation = useRef(location.state ?? '/');
 
   useEffect(() => {
     const getSearchedMovies = async () => {
@@ -64,8 +67,10 @@ export const MovieCard = () => {
     <>
       <MainMovieCard>
         <ImgWrap>
-          <BsArrowLeft />
-          <BtnGoBack onClick={handleGoBack}>Go back</BtnGoBack>
+          <MovieCardBtnWrap onClick={handleGoBack}>
+            <BsArrowLeft />
+            <BtnGoBack type="button">Go back</BtnGoBack>
+          </MovieCardBtnWrap>
           <img src={poster} alt={title} />
         </ImgWrap>
         <MovieCardInfo>
@@ -83,18 +88,23 @@ export const MovieCard = () => {
           </MovieCardGenreList>
         </MovieCardInfo>
       </MainMovieCard>
-      <div>
+      <MovieCardAddititonalWrap>
         <h5>Additional information</h5>
-        <ul>
+        <MovieCardAddititonalMenu>
           <li>
-            <Link to={`/movies/${movieId}/cast`}>Cast</Link>
+            <NavLink to={`/movies/${movieId}/cast`}>Cast</NavLink>
           </li>
           <li>
-            <Link to={`/movies/${movieId}/reviews`}>Reviews</Link>
+            <NavLink to={`/movies/${movieId}/reviews`}>Reviews</NavLink>
           </li>
-        </ul>
-      </div>
-      <Outlet />
+        </MovieCardAddititonalMenu>
+      </MovieCardAddititonalWrap>
+
+      <Suspense fallback={<div>Loading...</div>}>
+        <Outlet />
+      </Suspense>
     </>
   );
 };
+
+export default MovieCard;

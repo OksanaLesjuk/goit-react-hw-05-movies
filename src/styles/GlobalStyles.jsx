@@ -60,4 +60,7 @@ export const GlobalStyles = css`
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
       monospace;
   }
+  a:hover {
+    color: #ff7f7f;
+  }
 `;
