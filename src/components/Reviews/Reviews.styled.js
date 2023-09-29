@@ -3,7 +3,7 @@ import styled from '@emotion/styled'
 
 export const ReviewsList = styled.ul`
 padding-top:20px;
-
+padding-bottom: 40px;
 `
 
 

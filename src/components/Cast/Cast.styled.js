@@ -6,6 +6,7 @@ display: flex;
 flex-wrap: wrap;
 gap:20px;
 padding-top:20px;
+padding-bottom:40px;
 `
 
 export const CastListItem = styled.li`
