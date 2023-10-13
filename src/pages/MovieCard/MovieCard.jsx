@@ -31,6 +31,7 @@ const MovieCard = () => {
   const [genres, setGenres] = useState([]);
   const [overview, setOverview] = useState('');
   const [userScore, setUserScore] = useState();
+
   const location = useLocation();
   const navigate = useNavigate();
   const refLocation = useRef(location.state ?? '/');
