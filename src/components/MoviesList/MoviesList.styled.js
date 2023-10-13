@@ -10,9 +10,13 @@ padding-top:20px;
 
 export const MovieLink = styled(NavLink)`
 
-display: inline-block;
+display: block;
 margin-bottom:16px;
-
+border: 1px solid white; 
+  border-radius: 10px; 
+  padding: 20px;
+  font-size: 20px;
+font-weight:500;
 `
 
 export const TrendingTitle = styled.h2`
